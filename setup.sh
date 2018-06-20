@@ -1,8 +1,9 @@
 #!/bin/bash
 
-CLOUDSQL_HOME=/opt/cloudsql
+CLOUDSQL_HOME=/opt/google/cloudsql
 
 echo "Downloading cloud_sql_proxy to $CLOUDSQL_HOME." 
+
 mkdir -p $CLOUDSQL_HOME
 wget -O $CLOUDSQL_HOME/cloud_sql_proxy https://dl.google.com/cloudsql/cloud_sql_proxy.linux.amd64
 chmod +x $CLOUDSQL_HOME/cloud_sql_proxy
@@ -19,21 +20,18 @@ then
 else
     cp etc/cloudsql/cloudsql.conf /etc/cloudsql/cloudsql.conf
 fi
-
-update-rc.d cloudsql defaults
+/sbin/chkconfig --add cloudsql
+/sbin/chkconfig cloudsql on
 
 echo <<EOD
+
 Google Cloud SQL Proxy installed in $CLOUDSQL_HOME.
 
+
 !!!! Be sure to update /etc/cloudsql/cloudsql.conf before running cloudsql!
-
 You can control Google Cloud SQL Proxy through the init.d service tool:
-
-START Cloud SQL:	service cloudsql start
-STOP Cloud SQL:		service cloudsql stop
-UNINSTALL Service:	service cloudsql uninstall
+START Cloud SQL:        systemctl cloudsql start
+STOP Cloud SQL:         service cloudsql stop
 
 Cloud SQL will log to /var/log/cloudsql.log
-
 EOD
-
