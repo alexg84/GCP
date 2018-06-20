@@ -1,5 +1,5 @@
 # Google Cloud SQL Proxy init.d Service
-Google Cloud provides a proxy connector that allows you to connect a MySQL client to your Google Cloud SQL instance.  It works great, but doesn't come in a daemon-friendly form.  We put together this install script and init.d service script to make it a bit easier to manage on an Ubuntu server.  ([Learn more about LSB init scripts](http://wiki.debian.org/LSBInitScripts)).
+Google Cloud provides a proxy connector that allows you to connect a MySQL client to your Google Cloud SQL instance.  It works great, but doesn't come in a daemon-friendly form.  We put together this install script and init.d service script to make it a bit easier to manage on an CentOS server.  ([Learn more about LSB init scripts](http://wiki.debian.org/LSBInitScripts)).
 
 To learn more about Google Cloud SQL Proxy, [check out Google's documentation](https://cloud.google.com/sql/docs/mysql-connect-proxy).
 
@@ -36,25 +36,16 @@ CREDENTIAL_FILE=/full/path/to/your/credential.json
 Note: The cloudsql.conf file is actually a Bash-formatted script, sourced by init.d/cloudsql.  Hack away!
 
 ## Running Cloud SQL Proxy
-As with any init.d service, you can simply use the "service" command to start, stop or restart cloud_sql_proxy:
+As with any init.d service, you can simply use the "systemctl" command to start, stop cloud_sql_proxy:
 ```sh
-$ service cloudsql start
-$ service cloudsql stop
-$ service cloudsql restart
+$ systemctl cloudsql start
+$ systemctl cloudsql stop
 ```
 
 ## Cloud SQL Proxy Logging
 The service will log all the output from cloud_sql_proxy to /var/log/cloudsql.log.
 
-## Uninstalling the init.d Script
-To uninstall the service, simply run:
-```sh
-$ service cloudsql uninstall
-```
-Note that the cloud_sql_proxy will remain in /opt/cloudsql/, and your config will still be in /etc/cloudsql/.  You will need to remove these manually, along with any logs in /var/log/.
 
-## Issues?
-If you have any issues with the script, feel free to open an issue on this project.  We probably won't respond immedaitely, but we will keep an eye out for issues.
 
 ### As Is, No Warranty
 You know the drill.  We're not responsible for what this script does to your server.  Use it at your own risk.  It hasn't blown up any of our own servers, but you never know.  With artificial intelligence on the rise, it's probably just a matter of time. :)
