@@ -31,7 +31,7 @@ Google Cloud SQL Proxy installed in $CLOUDSQL_HOME.
 !!!! Be sure to update /etc/cloudsql/cloudsql.conf before running cloudsql!
 You can control Google Cloud SQL Proxy through the init.d service tool:
 START Cloud SQL:        systemctl cloudsql start
-STOP Cloud SQL:         service cloudsql stop
+STOP Cloud SQL:         systemctl cloudsql stop
 
 Cloud SQL will log to /var/log/cloudsql.log
 EOD
